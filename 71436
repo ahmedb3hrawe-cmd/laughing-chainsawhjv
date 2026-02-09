@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لعبة تجميع النقاط</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Tahoma, Arial;
+    background: #f1f1f1;
+}
+
+/* الشريط العلوي */
+.header {
+    background: #222;
+    color: #fff;
+    padding: 15px;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* الحاوية */
+.container {
+    padding: 15px;
+    max-width: 480px;
+    margin: auto;
+}
+
+/* كرت */
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* زر */
+button {
+    width: 100%;
+    padding: 15px;
+    font-size: 17px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #43a047;
+}
+
+/* المكافآت */
+.rewards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.reward {
+    background: #ff9800;
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.reward button {
+    margin-top: 10px;
+    background: #fff;
+    color: #ff9800;
+    font-size: 14px;
+}
+
+/* إعلان وهمي */
+.ad-box img {
+    width: 100%;
+    border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div>🎮 لعبة النقاط</div>
+    <div>⭐ النقاط: <span id="points">0</span></div>
+</div>
+
+<div class="container">
+
+    <!-- تجميع النقاط -->
+    <div class="card">
+        <h3>🔘 تجميع النقاط</h3>
+        <button onclick="addPoints()">اضغط لتحصل على 10 نقاط</button>
+    </div>
+
+    <!-- مشاهدة صورة -->
+    <div class="card ad-box">
+        <h3>🖼️ شاهد الصورة واحصل على 20 نقطة</h3>
+        <img src="https://picsum.photos/400/200" alt="إعلان">
+        <br><br>
+        <button onclick="watchAd()">حصلت على النقاط</button>
+    </div>
+
+    <!-- المكافآت -->
+    <div class="card">
+        <h3>🎁 المكافآت (200 نقطة)</h3>
+        <div class="rewards">
+            <div class="reward">
+                مكافأة 1
+                <button onclick="redeem()">استبدال</button>
+            </div>
+            <div class="reward">
+                مكافأة 2
+                <button onclick="redeem()">استبدال</button>
+            </div>
+            <div class="reward">
+                مكافأة 3
+                <button onclick="redeem()">استبدال</button>
+            </div>
+            <div class="reward">
+                مكافأة 4
+                <button onclick="redeem()">استبدال</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+let points = localStorage.getItem("points") || 0;
+points = parseInt(points);
+document.getElementById("points").textContent = points;
+
+function savePoints() {
+    localStorage.setItem("points", points);
+    document.getElementById("points").textContent = points;
+}
+
+function addPoints() {
+    points += 10;
+    savePoints();
+}
+
+function watchAd() {
+    points += 20;
+    savePoints();
+    alert("✅ تم إضافة 20 نقطة");
+}
+
+function redeem() {
+    if (points >= 200) {
+        points -= 200;
+        savePoints();
+        alert("🎉 تم استبدال المكافأة بنجاح");
+    } else {
+        alert("❌ لا تملك نقاط كافية");
+    }
+}
+</script>
+
+</body>
+</html>
